@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearpod-like Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .slide {
+      margin-bottom: 40px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .slide img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .quiz-question {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .quiz-options {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+
+  <script>
+    // Get the JSON URL from the hash part of the URL
+    const jsonUrl = window.location.hash.substring(1);
+
+    // Fetch the JSON file and render the content
+    fetch(jsonUrl)
+      .then(response => response.json())
+      .then(data => {
+        const contentDiv = document.getElementById('content');
+        data.slides.forEach(slide => {
+          const slideDiv = document.createElement('div');
+          slideDiv.className = 'slide';
+
+          if (slide.type === 'text') {
+            slideDiv.innerHTML = `<h2>${slide.title}</h2><p>${slide.content}</p>`;
+          } else if (slide.type === 'image') {
+            slideDiv.innerHTML = `<h2>${slide.title}</h2><img src="${slide.url}" alt="${slide.alt}">`;
+          } else if (slide.type === 'quiz') {
+            slideDiv.innerHTML = `
+              <h2>${slide.title}</h2>
+              <div class="quiz-question">${slide.question}</div>
+              <div class="quiz-options">
+                ${slide.options.map(option => `<label><input type="radio" name="quiz"> ${option}</label><br>`).join('')}
+              </div>
+            `;
+          }
+
+          contentDiv.appendChild(slideDiv);
+        });
+      })
+      .catch(error => console.error('Error loading JSON:', error));
+  </script>
+</body>
+</html>

@@ -8,12 +8,17 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      position: relative;
     }
     .slide {
       margin-bottom: 40px;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 10px;
+      display: none; /* Hide all slides by default */
+    }
+    .slide.active {
+      display: block; /* Show the active slide */
     }
     .slide img {
       max-width: 100%;
@@ -27,12 +32,40 @@
     .quiz-options {
       margin-left: 20px;
     }
+    .nav-button {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .nav-button:hover {
+      background-color: #0056b3;
+    }
+    .prev {
+      left: 20px;
+    }
+    .next {
+      right: 20px;
+    }
   </style>
 </head>
 <body>
   <div id="content"></div>
 
+  <!-- Navigation Buttons -->
+  <button class="nav-button prev" onclick="prevSlide()">Previous</button>
+  <button class="nav-button next" onclick="nextSlide()">Next</button>
+
   <script>
+    let currentSlideIndex = 0;
+    let slides = [];
+
     // Get the JSON URL from the hash part of the URL
     const jsonUrl = window.location.hash.substring(1);
 
@@ -40,29 +73,65 @@
     fetch(jsonUrl)
       .then(response => response.json())
       .then(data => {
-        const contentDiv = document.getElementById('content');
-        data.slides.forEach(slide => {
-          const slideDiv = document.createElement('div');
-          slideDiv.className = 'slide';
-
-          if (slide.type === 'text') {
-            slideDiv.innerHTML = `<h2>${slide.title}</h2><p>${slide.content}</p>`;
-          } else if (slide.type === 'image') {
-            slideDiv.innerHTML = `<h2>${slide.title}</h2><img src="${slide.url}" alt="${slide.alt}">`;
-          } else if (slide.type === 'quiz') {
-            slideDiv.innerHTML = `
-              <h2>${slide.title}</h2>
-              <div class="quiz-question">${slide.question}</div>
-              <div class="quiz-options">
-                ${slide.options.map(option => `<label><input type="radio" name="quiz"> ${option}</label><br>`).join('')}
-              </div>
-            `;
-          }
-
-          contentDiv.appendChild(slideDiv);
-        });
+        slides = data.slides;
+        renderSlides();
+        showSlide(currentSlideIndex); // Show the first slide
       })
       .catch(error => console.error('Error loading JSON:', error));
+
+    // Render all slides
+    function renderSlides() {
+      const contentDiv = document.getElementById('content');
+      slides.forEach((slide, index) => {
+        const slideDiv = document.createElement('div');
+        slideDiv.className = 'slide';
+        slideDiv.dataset.index = index;
+
+        if (slide.type === 'text') {
+          slideDiv.innerHTML = `<h2>${slide.title}</h2><p>${slide.content}</p>`;
+        } else if (slide.type === 'image') {
+          slideDiv.innerHTML = `<h2>${slide.title}</h2><img src="${slide.url}" alt="${slide.alt}">`;
+        } else if (slide.type === 'quiz') {
+          slideDiv.innerHTML = `
+            <h2>${slide.title}</h2>
+            <div class="quiz-question">${slide.question}</div>
+            <div class="quiz-options">
+              ${slide.options.map(option => `<label><input type="radio" name="quiz"> ${option}</label><br>`).join('')}
+            </div>
+          `;
+        }
+
+        contentDiv.appendChild(slideDiv);
+      });
+    }
+
+    // Show a specific slide
+    function showSlide(index) {
+      const slideElements = document.querySelectorAll('.slide');
+      slideElements.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+    }
+
+    // Navigate to the previous slide
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        showSlide(currentSlideIndex);
+      }
+    }
+
+    // Navigate to the next slide
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        showSlide(currentSlideIndex);
+      }
+    }
   </script>
 </body>
 </html>

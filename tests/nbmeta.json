@@ -1,36 +1,70 @@
 {
+    "meta": {
+      "company": "Natural Bonds Meta",
+      "version": "2.1",
+      "contact": "connect@naturalbondsmeta.com"
+    },
     "slides": [
       {
         "type": "text",
-        "title": "The Truth About Skincare",
-        "content": "Did you know your skin absorbs up to 60% of what you put on it? Let's explore why natural skincare matters."
+        "title": "Welcome to Natural Bonds Meta",
+        "content": "<div class='fact-box'><h2>Our Philosophy</h2><p>Bridging nature's wisdom with modern science for <strong>truly ethical skincare</strong></p></div>"
       },
       {
         "type": "image",
-        "title": "Natural vs Synthetic Ingredients",
-        "url": "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg",
-        "alt": "Natural herbs vs laboratory chemicals"
+        "title": "The Synthetic Problem",
+        "url": "https://images.pexels.com/photos/3997994/pexels-photo-3997994.jpeg",
+        "alt": "Chemical laboratory vs natural ingredients"
       },
       {
         "type": "text",
-        "title": "Key Benefits of Natural Skincare",
-        "content": "1. No harsh chemicals\n2. Environmentally friendly\n3. Better long-term skin health\n4. Rich in antioxidants\n5. Gentle on sensitive skin"
+        "title": "Why Choose Natural?",
+        "content": "<ul><li>0% synthetic preservatives</li><li>100% biodegradable packaging</li><li>Carbon-negative production</li><li>Clinical efficacy proven</li></ul>"
       },
       {
         "type": "quiz",
-        "title": "Test Your Knowledge",
-        "question": "Which common skincare ingredient is linked to hormone disruption?",
+        "title": "Consumer Knowledge Check",
+        "question": "Which certification guarantees organic ingredients?",
         "options": [
-          "Organic Aloe Vera",
-          "Parabens (preservatives)",
-          "Natural Jojoba Oil",
-          "Plant-based Glycerin"
+          "FDA Approved",
+          "USDA Organic",
+          "CE Marking",
+          "Fair Trade"
         ]
       },
       {
-        "type": "text", 
-        "title": "Why It Matters",
-        "content": "Natural skincare products:\n• Biodegrade safely\n• Support sustainable farming\n• Maintain skin's pH balance\n• Reduce chemical pollution"
+        "type": "image",
+        "title": "Our Signature Formula",
+        "url": "https://images.pexels.com/photos/6340079/pexels-photo-6340079.jpeg",
+        "alt": "Natural skincare ingredients collage"
+      },
+      {
+        "type": "text",
+        "title": "Science-Backed Results",
+        "content": "<div class='fact-box'><h3>Clinical Trial Results</h3><p>83% reduction in skin irritation\n72% improved hydration\n100% allergen-free</p></div>"
+      },
+      {
+        "type": "text",
+        "title": "Environmental Impact",
+        "content": "<ul><li>✓ 100% plastic-neutral</li><li>✓ 3x carbon offset</li><li>✓ Wildlife habitat support</li></ul>"
+      },
+      {
+        "type": "image",
+        "title": "Sustainable Farming",
+        "url": "https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg",
+        "alt": "Organic farm cultivation"
+      },
+      {
+        "type": "text",
+        "title": "Join Our Mission",
+        "content": "<h3>Become a Nature Guardian</h3><p>With every purchase:\n• Plant 1 tree\n• Protect 10m² ocean\n• Educate 1 child</p>"
       }
-    ]
+    ],
+    "compliance": {
+      "certifications": [
+        "USDA Organic",
+        "Leaping Bunny",
+        "Climate Neutral Certified"
+      ]
+    }
   }

@@ -1,0 +1,53 @@
+{
+    "slides": [
+      {
+        "type": "text",
+        "title": "The Truth About Skincare",
+        "content": "Did you know your skin absorbs up to 60% of what you put on it? Let's explore why natural skincare matters."
+      },
+      {
+        "type": "image",
+        "title": "Natural vs Synthetic Ingredients",
+        "url": "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg",
+        "alt": "Natural herbs vs laboratory chemicals"
+      },
+      {
+        "type": "text",
+        "title": "Key Benefits of Natural Skincare",
+        "content": "1. No harsh chemicals\n2. Environmentally friendly\n3. Better long-term skin health\n4. Rich in antioxidants\n5. Gentle on sensitive skin"
+      },
+      {
+        "type": "image",
+        "title": "Chemical Absorption",
+        "url": "https://images.pexels.com/photos/5946088/pexels-photo-5946088.jpeg",
+        "alt": "Skin absorption diagram"
+      },
+      {
+        "type": "quiz",
+        "title": "Test Your Knowledge",
+        "question": "Which common skincare ingredient is linked to hormone disruption?",
+        "options": [
+          "Organic Aloe Vera",
+          "Parabens (preservatives)",
+          "Natural Jojoba Oil",
+          "Plant-based Glycerin"
+        ]
+      },
+      {
+        "type": "text",
+        "title": "Why It Matters",
+        "content": "Natural skincare products:\n✔️ Biodegrade safely\n✔️ Support sustainable farming\n✔️ Maintain skin's pH balance\n✔️ Reduce chemical pollution"
+      },
+      {
+        "type": "image",
+        "title": "Long-Term Effects",
+        "url": "https://images.pexels.com/photos/8373064/pexels-photo-8373064.jpeg",
+        "alt": "Aging skin comparison"
+      },
+      {
+        "type": "text",
+        "title": "Make the Switch!",
+        "content": "Start with these natural alternatives:\n• Coconut oil instead of silicone-based moisturizers\n• Green tea extract instead of synthetic antioxidants\n• Natural clays instead of microbead exfoliants"
+      }
+    ]
+  }

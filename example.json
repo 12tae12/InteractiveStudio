@@ -1,21 +1,31 @@
 {
-    "slides": [
-      {
-        "type": "text",
-        "title": "Welcome to the Presentation",
-        "content": "This is an example of a text slide."
-      },
-      {
-        "type": "image",
-        "title": "Example Image",
-        "url": "https://via.placeholder.com/600x400",
-        "alt": "Placeholder Image"
-      },
-      {
-        "type": "quiz",
-        "title": "Quiz Time!",
-        "question": "What is the capital of France?",
-        "options": ["Paris", "London", "Berlin", "Madrid"]
-      }
-    ]
-  }
+  "slides": [
+    {
+      "type": "text",
+      "title": "Welcome to the Presentation",
+      "content": "This is an example of a text slide."
+    },
+    {
+      "type": "image",
+      "title": "Example Image",
+      "url": "https://via.placeholder.com/600x400",
+      "alt": "Placeholder Image"
+    },
+    {
+      "type": "quiz",
+      "title": "Quiz Time!",
+      "question": "What is the capital of France?",
+      "options": [
+        "Paris",
+        "London",
+        "Berlin",
+        "Madrid"
+      ]
+    },
+    {
+      "type": "text",
+      "title": "New Text Slide",
+      "content": "Enter your content here"
+    }
+  ]
+}

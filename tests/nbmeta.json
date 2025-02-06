@@ -1,34 +1,36 @@
 {
     "slides": [
       {
-        "content": `
-          <h2>🌿 The Power of Natural Skincare</h2>
-          <div class="fact-box">
-            <p>Your skin absorbs <strong>60%</strong> of what you apply to it</p>
-          </div>
-          <img src="natural-skin.jpg" alt="Healthy skin">
-        `
+        "type": "text",
+        "title": "The Truth About Skincare",
+        "content": "Did you know your skin absorbs up to 60% of what you put on it? Let's explore why natural skincare matters."
       },
       {
-        "content": `
-          <h2>🚫 Hidden Dangers in Synthetics</h2>
-          <div class="quiz-options">
-            <label class="quiz-option">
-              <input type="radio" name="chemicals" value="parabens">
-              Parabens (preservatives)
-            </label>
-            <label class="quiz-option">
-              <input type="radio" name="chemicals" value="sulfates">
-              Sulfates (cleansing agents)
-            </label>
-          </div>
-        `,
-        "script": `
-          Navigation.lockNavigation('Select an option to continue');
-          document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('change', () => Navigation.unlockNavigation());
-          });
-        `
+        "type": "image",
+        "title": "Natural vs Synthetic Ingredients",
+        "url": "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg",
+        "alt": "Natural herbs vs laboratory chemicals"
+      },
+      {
+        "type": "text",
+        "title": "Key Benefits of Natural Skincare",
+        "content": "1. No harsh chemicals\n2. Environmentally friendly\n3. Better long-term skin health\n4. Rich in antioxidants\n5. Gentle on sensitive skin"
+      },
+      {
+        "type": "quiz",
+        "title": "Test Your Knowledge",
+        "question": "Which common skincare ingredient is linked to hormone disruption?",
+        "options": [
+          "Organic Aloe Vera",
+          "Parabens (preservatives)",
+          "Natural Jojoba Oil",
+          "Plant-based Glycerin"
+        ]
+      },
+      {
+        "type": "text", 
+        "title": "Why It Matters",
+        "content": "Natural skincare products:\n• Biodegrade safely\n• Support sustainable farming\n• Maintain skin's pH balance\n• Reduce chemical pollution"
       }
     ]
   }

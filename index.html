@@ -3,135 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nearpod-like Viewer</title>
+  <title>Natural Skincare Presentation</title>
   <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #45a049;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      position: relative;
-    }
-    .slide {
-      margin-bottom: 40px;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
       padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      display: none; /* Hide all slides by default */
+      background: #f5f5f5;
     }
+
+    .slide {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: none;
+    }
+
     .slide.active {
-      display: block; /* Show the active slide */
+      display: block;
+      animation: slideIn 0.5s ease;
     }
-    .slide img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-    .quiz-question {
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .quiz-options {
-      margin-left: 20px;
-    }
+
     .nav-button {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      background-color: #007bff;
+      background: var(--primary-color);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      padding: 15px 25px;
+      border-radius: 25px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
+      transition: all 0.3s ease;
     }
+
     .nav-button:hover {
-      background-color: #0056b3;
+      background: var(--secondary-color);
+      transform: translateY(-50%) scale(1.05);
     }
-    .prev {
-      left: 20px;
+
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    .quiz-options {
+      margin: 20px 0;
     }
-    .next {
-      right: 20px;
+
+    .quiz-option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--primary-color);
+      background: #f8fff8;
+    }
+
+    .alert {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff4444;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      z-index: 1000;
+      animation: alertSlide 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes alertSlide {
+      from { top: -50px; }
+      to { top: 20px; }
+    }
+
+    .fact-box {
+      background: #e8f5e9;
+      border-left: 4px solid var(--primary-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 15px 0;
     }
   </style>
 </head>
 <body>
   <div id="content"></div>
-
-  <!-- Navigation Buttons -->
-  <button class="nav-button prev" onclick="prevSlide()">Previous</button>
-  <button class="nav-button next" onclick="nextSlide()">Next</button>
+  <button class="nav-button prev" onclick="Navigation.prev()">‹ Previous</button>
+  <button class="nav-button next" onclick="Navigation.next()">Next ›</button>
 
   <script>
-    let currentSlideIndex = 0;
-    let slides = [];
+    const Navigation = {
+      currentIndex: 0,
+      totalSlides: 0,
+      locked: false,
+      quizStates: {},
 
-    // Get the JSON URL from the hash part of the URL
-    const jsonUrl = window.location.hash.substring(1);
+      init: (slides) => {
+        Navigation.totalSlides = slides.length;
+        document.getElementById('content').innerHTML = slides.map((slide, index) => `
+          <div class="slide" data-index="${index}">
+            ${slide.content || ''}
+            ${slide.script ? `<script>(() => { ${slide.script} })()<\/script>` : ''}
+          </div>
+        `).join('');
+        
+        Navigation.showSlide(0);
+      },
 
-    // Fetch the JSON file and render the content
-    fetch(jsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        slides = data.slides;
-        renderSlides();
-        showSlide(currentSlideIndex); // Show the first slide
-      })
-      .catch(error => console.error('Error loading JSON:', error));
-
-    // Render all slides
-    function renderSlides() {
-      const contentDiv = document.getElementById('content');
-      slides.forEach((slide, index) => {
-        const slideDiv = document.createElement('div');
-        slideDiv.className = 'slide';
-        slideDiv.dataset.index = index;
-
-        if (slide.type === 'text') {
-          slideDiv.innerHTML = `<h2>${slide.title}</h2><p>${slide.content}</p>`;
-        } else if (slide.type === 'image') {
-          slideDiv.innerHTML = `<h2>${slide.title}</h2><img src="${slide.url}" alt="${slide.alt}">`;
-        } else if (slide.type === 'quiz') {
-          slideDiv.innerHTML = `
-            <h2>${slide.title}</h2>
-            <div class="quiz-question">${slide.question}</div>
-            <div class="quiz-options">
-              ${slide.options.map(option => `<label><input type="radio" name="quiz"> ${option}</label><br>`).join('')}
-            </div>
-          `;
-        }
-
-        contentDiv.appendChild(slideDiv);
-      });
-    }
-
-    // Show a specific slide
-    function showSlide(index) {
-      const slideElements = document.querySelectorAll('.slide');
-      slideElements.forEach((slide, i) => {
-        if (i === index) {
-          slide.classList.add('active');
-        } else {
+      showSlide: (index) => {
+        document.querySelectorAll('.slide').forEach(slide => {
           slide.classList.remove('active');
+        });
+        document.querySelector(`.slide[data-index="${index}"]`).classList.add('active');
+        Navigation.currentIndex = index;
+      },
+
+      prev: () => {
+        if (Navigation.currentIndex > 0 && !Navigation.locked) {
+          Navigation.showSlide(Navigation.currentIndex - 1);
         }
-      });
-    }
+      },
 
-    // Navigate to the previous slide
-    function prevSlide() {
-      if (currentSlideIndex > 0) {
-        currentSlideIndex--;
-        showSlide(currentSlideIndex);
-      }
-    }
+      next: () => {
+        if (Navigation.currentIndex < Navigation.totalSlides - 1 && !Navigation.locked) {
+          // Check if current slide has validation requirements
+          const currentSlide = document.querySelector('.slide.active');
+          if (currentSlide.querySelector('.quiz-options')) {
+            const answered = currentSlide.querySelector('input:checked');
+            if (!answered) {
+              Navigation.showAlert('Please answer the question before continuing!');
+              return;
+            }
+          }
+          Navigation.showSlide(Navigation.currentIndex + 1);
+        }
+      },
 
-    // Navigate to the next slide
-    function nextSlide() {
-      if (currentSlideIndex < slides.length - 1) {
-        currentSlideIndex++;
-        showSlide(currentSlideIndex);
+      showAlert: (message) => {
+        const alert = document.createElement('div');
+        alert.className = 'alert';
+        alert.textContent = message;
+        document.body.appendChild(alert);
+        setTimeout(() => alert.remove(), 3000);
+      },
+
+      lockNavigation: (message) => {
+        Navigation.locked = true;
+        if (message) Navigation.showAlert(message);
+      },
+
+      unlockNavigation: () => {
+        Navigation.locked = false;
       }
-    }
+    };
+
+    // Load presentation from JSON
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const jsonUrl = window.location.hash.substring(1);
+        const response = await fetch(jsonUrl);
+        const data = await response.json();
+        Navigation.init(data.slides);
+      } catch (error) {
+        console.error('Error loading presentation:', error);
+        document.getElementById('content').innerHTML = `
+          <div class="slide active">
+            <h2>Error Loading Presentation</h2>
+            <p>${error.message}</p>
+          </div>
+        `;
+      }
+    });
+
+    // Add global quiz validation
+    document.addEventListener('change', (e) => {
+      if (e.target.matches('.quiz-options input[type="radio"]')) {
+        Navigation.unlockNavigation();
+      }
+    });
   </script>
 </body>
 </html>

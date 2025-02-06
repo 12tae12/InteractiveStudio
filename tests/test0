@@ -1,0 +1,32 @@
+{
+    "slides": [
+        {
+            "type": "text",
+            "title": "Hello Humans. This is a test.",
+            "content": "What did you expect."
+        },
+        {
+            "type": "quiz",
+            "title": "Basic quiz",
+            "question": "What would you pick",
+            "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ]
+        },
+        {
+            "type": "image",
+            "title": "A picture!",
+            "url": "https://1t2.pages.dev/favicon.ico",
+            "alt": "Image"
+        },
+        {
+            "type": "text",
+            "title": "The end",
+            "content": "Do you like this nearpod?"
+        }
+    ]
+}
